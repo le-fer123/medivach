@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Thread</title>
+</head>
+<body>
+    <h1>Download Thread</h1>
+    <form method="POST" action="{% url 'down' %}">
+        {% csrf_token %}
+        <label for="url">Enter Thread URL:</label>
+        <input type="text" id="url" name="url" placeholder="https://example.com#threadname" required>
+        <button type="submit">Download</button>
+    </form>
+
+    <a href="{% url 'thread_list' %}"> <h1> List of downloaded threads</h1></a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% load media_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thread Details</title>
+</head>
+<body>
+    <h1>Thread Details</h1>
+    <h2>{{ thread.title }}</h2>
+    {%if lost %} <h3>Lost: {{ lost }}</h3> {% endif %}
+
+    <p>Media:</p>
+    <ul>
+        {% for media in thread.media_set.all %}
+            <li>
+                {% if media.file.url|is_video%}
+                    <video controls style="max-width: 400px; height: auto;">
+                        <source src="{{ media.file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% elif media.file.url|is_image %}
+                    <img src="{{ media.file.url }}" alt="{{ media.title }}" style="max-width: 400px; height: auto;">
+                {% else %}
+                    <img src="{{ media.file.url }}" alt="{{ media.title }}" style="max-width: 200px; height: auto;">
+                {% endif %}
+                <p>{{ media.title }}</p>
+            </li>
+        {% empty %}
+            <p>No media available.</p>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'down' %}">Back to Download</a>
+</body>
+</html>
