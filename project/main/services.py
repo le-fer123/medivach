@@ -49,6 +49,7 @@ def recursive_down(imgs, img, thread):
     while attempts <= 5:
         mhk = requests.get(imgs[img])
         if mhk.status_code == 200 and mhk.content:
+            print("Download was successful", img)
             try:
                 print(thread)
                 if set_media(imgs[img].split('/')[-1], thread, mhk.content):

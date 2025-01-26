@@ -1,13 +1,7 @@
+{% extends "base2ch.html" %}
 {% load media_filters %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thread Details</title>
-</head>
-<body>
+{% block title %} Тред - thread.title  {% endblock %}
+{% block 2ch %}
     <h1>Thread Details</h1>
     <h2>{{ thread.title }}</h2>
     {%if lost %} <h3>Lost: {{ lost }}</h3> {% endif %}
@@ -34,5 +28,4 @@
     </ul>
 
     <a href="{% url 'down' %}">Back to Download</a>
-</body>
-</html>
+{% endblock %}

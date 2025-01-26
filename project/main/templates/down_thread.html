@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Thread</title>
-</head>
-<body>
-    <h1>Download Thread</h1>
-    <form method="POST" action="{% url 'down' %}">
-        {% csrf_token %}
-        <label for="url">Enter Thread URL:</label>
-        <input type="text" id="url" name="url" placeholder="https://example.com#threadname" required>
-        <button type="submit">Download</button>
-    </form>
+{% extends "base2ch.html" %}
+{% block title %} NE2ch {% endblock %}
+    {% block content %}
+        <h1 style="font-family: 'Open Sans'">Скачать тред:</h1>
+        <form method="POST" action="{% url 'down' %}">
+            {% csrf_token %}
+            <label style="font-family: 'Open Sans'" for="url">URL треда:</label>
+            <input type="text" id="url" name="url" placeholder="https://example.com#threadname" required>
+            <button style="font-family: 'Open Sans'" type="submit">Скачать</button>
+        </form>
 
-    <a href="{% url 'thread_list' %}"> <h1> List of downloaded threads</h1></a>
-</body>
-</html>
+        <a href="{% url 'thread_list' %}"> <h2> Список скаченных тредов</h2></a>
+    {% endblock %}
