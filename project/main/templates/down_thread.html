@@ -1,13 +1,55 @@
 {% extends "base2ch.html" %}
 {% block title %} NE2ch {% endblock %}
-    {% block content %}
-        <h1 style="font-family: 'Open Sans'">Скачать тред:</h1>
-        <form method="POST" action="{% url 'down' %}">
-            {% csrf_token %}
-            <label style="font-family: 'Open Sans'" for="url">URL треда:</label>
-            <input type="text" id="url" name="url" placeholder="https://example.com#threadname" required>
-            <button style="font-family: 'Open Sans'" type="submit">Скачать</button>
-        </form>
+{% block content %}
+    <h1 style="font-family: 'Open Sans'">Скачать тред:</h1>
+    <form method="POST" action="{% url 'down' %}" id="download-form">
+        {% csrf_token %}
+        <label style="font-family: 'Open Sans'" for="url">URL треда:</label>
+        <input type="text" id="url" name="url" placeholder="https://example.com#threadname" required>
+        <button style="font-family: 'Open Sans'" type="submit" id="submit-btn">
+            <span class="btn-text" >Скачать</span>
+            <div class="loader d-none"></div>
+        </button>
+    </form>
 
-        <a href="{% url 'thread_list' %}"> <h2> Список скаченных тредов</h2></a>
-    {% endblock %}
+    <a href="{% url 'thread_list' %}"><h2>Список скаченных тредов</h2></a>
+
+    <style>
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+            display: inline-block;
+        }
+
+        .d-none {
+            display: none !important;
+        }
+
+        #submit-btn {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <script>
+        document.getElementById('download-form').addEventListener('submit', function(e) {
+            const btn = document.getElementById('submit-btn');
+            const loader = btn.querySelector('.loader');
+            const btnText = btn.querySelector('.btn-text');
+            btn.disabled = true;
+            btnText.textContent = 'Скачивание...';
+            loader.classList.remove('d-none');
+        });
+    </script>
+{% endblock %}

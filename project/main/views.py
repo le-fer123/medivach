@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, DetailView, ListView
 
 from .models import Thread
@@ -17,6 +18,7 @@ def redirect_thread(request):
     return redirect(reverse('down'))
 
 
+@csrf_exempt
 def down_thread(request):
     if request.method == 'POST':
         url = request.POST['url']
